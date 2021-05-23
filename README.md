@@ -3,6 +3,7 @@
 Dotfiles for the i3 Fedora spin video on the testertech yt channel. This repo contains some pre-config for several programs:
 - URxvt
   - Xresources
+  - Some color schemes
 - Bashrc
 - Vimrc
 - Autorandr (screen setups)
