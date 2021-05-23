@@ -2,17 +2,32 @@
 echo [dotfiles] Make Symlinks to ~/git/dotfiles/ ... 
 if [[ -d ~/git/dotfiles ]]; 
 then
+
+remove_existing_file() {
+if test -f "$1"; then
+  FILE="$1"
+  echo [dotfiles] $FILE passed to the function
+  while true; do
+    read -p "[dotfiles] Do you want to remove $FILE? " yn
+    case $yn in
+        [Yy]* ) rm ${FILE}; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer y (yes) or n (no), hit control C to stop script.";;
+    esac
+  done
+fi
+}
 # Clean?
-remove_existing_file ~/.Xresources
-remove_existing_file ~/.bashrc
-remove_existing_file ~/.config/autorandr
-remove_existing_file ~/.config/i3/config
-remove_existing_file ~/.config/picom
-remove_existing_file ~/.config/polybar
-remove_existing_file ~/.config/compton.conf
-remove_existing_file ~/.xfiles
-remove_existing_file ~/.vimrc
-remove_existing_file ~/.Xmodmap
+remove_existing_file "$HOME/.Xresources"
+remove_existing_file "$HOME/.bashrc"
+remove_existing_file "$HOME/.config/autorandr"
+remove_existing_file "$HOME/.config/i3/config"
+remove_existing_file "$HOME/.config/picom"
+remove_existing_file "$HOME/.config/polybar"
+remove_existing_file "$HOME/.config/compton.conf"
+remove_existing_file "$HOME/.xfiles"
+remove_existing_file "$HOME/.vimrc"
+remove_existing_file "$HOME/.Xmodmap"
 ln -s ~/git/dotfiles/Xresources ~/.Xresources
 ln -s ~/git/dotfiles/bashrc ~/.bashrc
 ln -s ~/git/dotfiles/config/autorandr/ ~/.config/autorandr
@@ -32,16 +47,3 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 echo [vim] Pathogen  
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-function remove_existing_file() {
-FILE="${1}"
-if test -f "${FILE}"; then
-  while true; do
-    read -p "[dotfiles] Do you want to remove ${FILE}? " yn
-    case $yn in
-        [Yy]* ) rm ${FILE}; break;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer y (yes) or n (no), hit control C to stop script.";;
-    esac
-  done
-fi
-}
