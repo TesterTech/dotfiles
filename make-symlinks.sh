@@ -6,12 +6,11 @@ then
 remove_existing_file() {
 if test -f "$1"; then
   FILE="$1"
-  echo [dotfiles] $FILE passed to the function
   while true; do
     read -p "[dotfiles] Do you want to remove $FILE? " yn
     case $yn in
         [Yy]* ) rm ${FILE}; break;;
-        [Nn]* ) exit;;
+        [Nn]* ) break;;
         * ) echo "Please answer y (yes) or n (no), hit control C to stop script.";;
     esac
   done
