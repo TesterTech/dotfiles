@@ -1,8 +1,0 @@
-[SynPS/2 Synaptics TouchPad]
-naturalScroll=true
-pointerAcceleration=0.2
-tapToClick=true
-
-[Synaptics TM3276-031]
-middleEmulation=true
-tapToClick=true
