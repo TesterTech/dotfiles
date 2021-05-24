@@ -46,3 +46,16 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 echo [vim] Pathogen  
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+echo [scripts] Create empty polybarstart script in scripts dir.
+if [[ -d ~/scripts ]]; 
+then
+  cd ~/scripts
+else
+  mkdir ~/scripts && cd ~/scripts
+fi
+echo "#!/bin/bash
+# put the line to start polybar in here.
+
+"> polybarstart
+
+chmod +x polybarstart
