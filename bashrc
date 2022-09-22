@@ -5,12 +5,12 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 #JAVA_HOME=$HOME/Apps/JAVA/jdk-11/
+#JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.332.b09-1.el9_0.x86_64/
+#export JAVA_HOME
 PATH="$HOME/Apps:$HOME/.local/bin:$HOME/bin:$JAVA_HOME/bin:$HOME/scripts:$PATH"
 export PATH
 export EDIT0R=vim
 export HISTCONTROL=ignoredups:erasedups:ignorespace
-# https://wiki.archlinux.org/index.php/Uniform_look_for_Qt_and_GTK_applications#Styles_for_both_Qt_and_GTK
-export QT_QPA_PLATFORMTHEME=qt5ct
 # User specific aliases and functions
 alias nan='netstat -an |grep LISTEN | grep tcp'
 alias gst='git status'
@@ -22,9 +22,7 @@ alias l='ls -lh'
 alias la='ls -lhatr'
 alias py='python'
 alias vi='vim'
-# reload and merge .Xresources file
-alias rexvt='xrdb ~/.Xresources && pkill urxvt'
-alias rxconf='vim ~/.Xresources'
+alias vim='nvim'
 alias vimrc='vim ~/.vimrc'
 alias i3conf='vim ~/.config/i3/config'
 alias bashrc='vim ~/.bashrc'
@@ -36,10 +34,7 @@ release=$(sed -n 1p  /etc/os-release)
 if [[ $release == *"Fedora"* ]]; then
   echo "Running on Fedora " $HOSTNAME
 fi
-# If running in TTY mode, increase the font size
-if [[ 'tty' =~ ^/dev/tty[0-9]+ ]]; then
-    setfont /usr/share/kbd/consolefonts/iso02-12x22.psfu.gz &
-fi
+
 #Prompt
 function prompt() {
 Black="\e[30m"
@@ -88,4 +83,21 @@ function powerprompt()
     esac
 }
 powerprompt     # This is the default prompt -- might be slow.
+function cd {
+    builtin cd "$@" && ls -lrth
+}
+export PATH=/home/egraaf/bin:$PATH
+#export DOCKER_HOST=unix:///run/user/1000/docker.sock
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+PATH="/home/egraaf/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/egraaf/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/egraaf/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/egraaf/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/egraaf/perl5"; export PERL_MM_OPT;
