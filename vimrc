@@ -1,9 +1,13 @@
 " from primagen youtube video
 " https://www.youtube.com/watch?v=n9k9scbTuvQ
 execute pathogen#infect()
+set nocompatible
 filetype plugin indent on
 syntax on
 runtime! plugin/sensible.vim
+set showmatch
+set cursorline
+set mouse=a
 set noerrorbells
 set tabstop=4 softtabstop=4
 set expandtab
@@ -20,6 +24,7 @@ set laststatus=2
 
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
+highlight Comment cterm=italic
 
 " if plug not installed you get an error
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
